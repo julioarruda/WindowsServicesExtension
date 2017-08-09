@@ -1,0 +1,109 @@
+{
+  "id": "b8191a40-7d09-11e7-adbb-b774110c0faf",
+  "name": "StartWindowsServices",
+  "friendlyName": "Instalar e Iniciar um Windows Service",
+  "description": "Task utilizada para Instalar e iniciar um Windows Services",
+  "author": "Julio Arruda",
+  "helpMarkDown": "",
+  "category": "Utility",
+  "visibility": [
+    "Build",
+    "Release"
+  ],
+  "demands": [],
+  "version": {
+    "Major": "0",
+    "Minor": "1",
+    "Patch": "0"
+  },
+  "minimumAgentVersion": "1.95.0",
+  "instanceNameFormat": "Instalar Windows Service $(ServiceName)",
+  "groups": [
+         {
+            "name": "configuracoes",
+            "displayName": "Configurações",
+            "isExpanded": true
+        },
+        {
+            "name": "servico",
+            "displayName": "Serviço",
+            "isExpanded": true
+        }
+		   
+    ],
+  "inputs": [
+     {
+            "name": "EnvironmentName",
+            "type": "multiLine",
+            "label": "Machines",
+            "defaultValue": "",
+            "required": false,
+            "groupName": "configuracoes",
+            "helpMarkDown": "Provide a comma separated list of machine IP addresses or FQDNs along with ports. Port is defaulted based on the selected protocol. <br>Eg: dbserver.fabrikam.com,dbserver_int.fabrikam.com:5986,192.168.12.34:5986 <br>Or provide output variable of other tasks. Eg: $(variableName) <br>If you are using HTTPS, name/IP of machine should match the CN in the certificate."
+        },
+        {
+            "name": "AdminUserName",
+            "type": "string",
+            "label": "Admin Login",
+            "defaultValue": "",
+            "required": false,
+            "groupName": "configuracoes",
+            "helpMarkDown": "Administrator login for the target machines."
+        },
+        {
+            "name": "AdminPassword",
+            "type": "string",
+            "label": "Password",
+            "defaultValue": "",
+            "required": false,
+            "groupName": "configuracoes",
+            "helpMarkDown": "Administrator password for the target machines. <br>It can accept variable defined in Build/Release definitions as '$(passwordVariable)'. <br>You may mark variable type as 'secret' to secure it."
+        },
+        {
+            "name": "ServiceName",
+            "type": "string",
+            "label": "Nome do Serviço",
+            "defaultValue": "",
+            "required": false,
+            "groupName": "servico",
+            "helpMarkDown": "Nome do Serviço que deseja parar"
+        },
+        {
+            "name": "ServiceFolder",
+            "type": "filePath",
+            "label": "Caminho do Serviço",
+            "defaultValue": "",
+            "required": false,
+            "groupName": "servico",
+            "helpMarkDown": "Diretório do Serviço ex: c:\\servico\\servico.exe"
+        },
+        {
+            "name": "startupType",
+            "type": "pickList",
+            "label": "Tipo de Inicialização",
+            "defaultValue": "Manual",
+            "required": false,
+            "groupName": "servico",
+            "helpMarkDown": "Selecione o Tipo de Inicialização",
+            "options": {
+                      "Manual": "Manual",
+                      "Automatic": "Automatico",
+                      "Disabled":"Desabilitado"
+                      }
+        },
+        {
+            "name": "iniciaServico",
+            "type": "boolean",
+            "label": "Iniciar Serviço",
+            "defaultValue": "",
+            "required": false,
+	          "groupName": "servico",
+            "helpMarkDown": "Informa se o Serviço será inicializado ou não durante o deploy"
+          }
+  ],
+  "execution": {
+      "PowerShell3": {
+      "target": "startService.ps1"
+    }
+  }
+}

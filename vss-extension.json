@@ -1,0 +1,78 @@
+{
+    "manifestVersion": 1,
+    "id": "build-deploy-extension",
+    "name": "Windows Services Extension",
+    "version": "0.0.1",
+    "publisher": "julioarrudac",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],    
+    "description": "Extensão utilizada para realizar o Deploy de Windows Services",
+    "categories": [
+        "Build and release"
+    ],
+	"icons": {
+            "default": "logo.ico"
+         },
+	"content": {
+        "details": {
+            "path": "readme.md"
+        }
+	},
+	"links": {
+		 "support": {
+				"uri": "http://www.julioarruda.com.br"
+			}
+	 },
+	"repository": {
+        "type": "git",
+        "uri": "https://github.com/julioarruda/WindowsServicesExtension"
+    },
+	"badges": [
+        {
+            "href": "https://github.com/julioarruda/WindowsServicesExtension",
+            "uri": "https://tfsjulio.visualstudio.com/_apis/public/build/definitions/b563d93c-863b-4a3a-b488-aee31d85e2fa/30/badge",
+            "description": "Build do Projeto no VSTS"
+        }
+    ],	
+    "files": [
+        {
+            "path": "Tasks/StartWindowsServices"
+        },
+        {
+            "path": "Tasks/StopWindowsServices"
+        }
+    ],
+	"branding": {
+        "color": "rgb(188, 41, 47)",
+        "theme": "dark"
+    },
+    "contributions": [
+		{
+                "id": "StartWindowsServices",
+                "type": "ms.vss-distributed-task.task",
+                "description": "Tarefa para Instalar e Iniciar Serviço Windows",
+                "targets": [
+                    "ms.vss-distributed-task.tasks"
+                    ],
+                "properties": {
+                    "name": "Tasks/StartWindowsServices"
+              
+                }
+        },
+		{
+                "id": "StopWindowsServices",
+                "type": "ms.vss-distributed-task.task",
+                "description": "Tarefa para Parar Serviço Windows",
+                "targets": [
+                    "ms.vss-distributed-task.tasks"
+                    ],
+                "properties": {
+                    "name": "Tasks/StopWindowsServices"
+              
+                }
+        }
+    ]
+}
