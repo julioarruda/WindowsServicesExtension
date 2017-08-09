@@ -14,19 +14,19 @@
   "version": {
     "Major": "0",
     "Minor": "1",
-    "Patch": "0"
+    "Patch": "1"
   },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "Instalar Windows Service $(ServiceName)",
   "groups": [
          {
             "name": "configuracoes",
-            "displayName": "Configurações",
+            "displayName": "Configs",
             "isExpanded": true
         },
         {
             "name": "servico",
-            "displayName": "Serviço",
+            "displayName": "Service",
             "isExpanded": true
         }
 		   

@@ -45,6 +45,17 @@
             "path": "Tasks/StopWindowsServices"
         }
     ],
+	"screenshots": [
+        {
+            "path": "screenshots/instala.png"
+        },
+        {
+            "path": "screenshots/lista.png"
+        },
+        {
+            "path": "parar/lista.png"
+        }
+    ],
 	"branding": {
         "color": "rgb(188, 41, 47)",
         "theme": "dark"
