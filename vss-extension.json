@@ -53,7 +53,10 @@
             "path": "screenshots/lista.png"
         },
         {
-            "path": "parar/lista.png"
+            "path": "screenshots/lista.png"
+        },
+        {
+            "path": "screenshots/parar.png"
         }
     ],
 	"branding": {

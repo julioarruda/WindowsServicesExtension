@@ -7,6 +7,9 @@ Projeto da Extension do VSTS para deploy de Windows Services
 
 ![](https://tfsjulio.visualstudio.com/_apis/public/build/definitions/b563d93c-863b-4a3a-b488-aee31d85e2fa/30/badge)
 
+Link da Extension:
+[https://marketplace.visualstudio.com/items?itemName=julioarrudac.build-deploy-extension](https://marketplace.visualstudio.com/items?itemName=julioarrudac.build-deploy-extension)
+
  
 
 Esta extenção permite que você realize o Deployment de aplicações Windows
