@@ -17,6 +17,8 @@ try {
     $ServiceFolder = Get-VstsInput -Name ServiceFolder
     $startupType = Get-VstsInput -Name startupType
     $iniciaServico = Get-VstsInput -Name iniciaServico
+    $usaInstallutil = Get-VstsInput -Name usaInstallutil
+	$installutilpath = Get-VstsInput -Name installutilpath
 
     $securePassword = ConvertTo-SecureString $AdminPassword -AsPlainText -Force    
     $credential = New-Object System.Management.Automation.PSCredential($AdminUserName,$securePassword)
@@ -30,7 +32,9 @@ try {
                             [string]$ServiceName,
                             [string]$serviceFolder,
                             [string]$iniciaServico,
-                            [string]$startupType
+                            [string]$startupType,
+                            [string]$usaInstallutil,
+                            [string]$installutilpath
                         
                     )
                 $securePassword = ConvertTo-SecureString $AdminPassword -AsPlainText -Force    
@@ -42,14 +46,23 @@ try {
                 $service.delete()
             }
             
-            New-Service -Name "$ServiceName" -BinaryPathName "$ServiceFolder" -DisplayName "$ServiceName" -Credential $credential -StartupType $startupType
+            if($usaInstallutil -eq "true")
+			{
+                
+				$run = $installutilpath + " " + "$ServiceFolder"
+                Invoke-Expression $run
+
+			}
+			else{
+				New-Service -Name "$ServiceName" -BinaryPathName "$ServiceFolder" -DisplayName "$ServiceName" -Credential $credential -StartupType $startupType
+			}
                
                 if($iniciaServico -eq "true")
                 {
                     Start-Service "$ServiceName"
                 }
 
-    } -SessionOption $sessionOptions -ArgumentList @($AdminUserName,$AdminPassword,$ServiceName,$ServiceFolder,$iniciaServico,$startupType) -Credential $credential    
+    } -SessionOption $sessionOptions -ArgumentList @($AdminUserName,$AdminPassword,$ServiceName,$ServiceFolder,$iniciaServico,$startupType,$usaInstallutil,$installutilpath) -Credential $credential    
 
 } finally {
     Trace-VstsLeavingInvocation $MyInvocation
