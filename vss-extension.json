@@ -43,6 +43,9 @@
         },
         {
             "path": "Tasks/StopWindowsServices"
+        },
+        {
+            "path": "Tasks/IniciaWindowsServices"
         }
     ],
 	"screenshots": [
@@ -67,7 +70,7 @@
 		{
                 "id": "StartWindowsServices",
                 "type": "ms.vss-distributed-task.task",
-                "description": "Tarefa para Instalar e Iniciar Serviço Windows",
+                "description": "Task to install and Start Windows Services",
                 "targets": [
                     "ms.vss-distributed-task.tasks"
                     ],
@@ -79,12 +82,24 @@
 		{
                 "id": "StopWindowsServices",
                 "type": "ms.vss-distributed-task.task",
-                "description": "Tarefa para Parar Serviço Windows",
+                "description": "Task to Stop Windows Services",
                 "targets": [
                     "ms.vss-distributed-task.tasks"
                     ],
                 "properties": {
                     "name": "Tasks/StopWindowsServices"
+              
+                }
+        },
+		{
+                "id": "StopWindowsServices",
+                "type": "ms.vss-distributed-task.task",
+                "description": "Task only to Start Windows Services",
+                "targets": [
+                    "ms.vss-distributed-task.tasks"
+                    ],
+                "properties": {
+                    "name": "Tasks/IniciaWindowsServices"
               
                 }
         }

@@ -1,8 +1,8 @@
 {
-  "id": "f12486d0-7d09-11e7-b6b2-091599e20064",
-  "name": "StopWindowsServices",
-  "friendlyName": "Stop Windows Service",
-  "description": "Task used to Stop Windows Service in remote Machines",
+  "id": "352232e0-7eba-11e7-a125-8b80caddf70e",
+  "name": "IniciaWindowsServices",
+  "friendlyName": "Start Windows Services",
+  "description": "Task used **only** to start Windows Services in remote Machines",
   "author": "Julio Arruda",
   "helpMarkDown": "",
   "category": "Utility",
@@ -14,31 +14,17 @@
   "version": {
     "Major": "0",
     "Minor": "1",
-    "Patch": "2"
+    "Patch": "1"
   },
   "minimumAgentVersion": "1.95.0",
-  "instanceNameFormat": "Stop Windows Services $(ServiceName)",
-  "groups": [
-         {
-            "name": "configuracoes",
-            "displayName": "Configs",
-            "isExpanded": true
-        },
-        {
-            "name": "servico",
-            "displayName": "Service",
-            "isExpanded": true
-        }
-		   
-    ],
+  "instanceNameFormat": "Start Windows Services $(message)",
   "inputs": [
-     {
+{
             "name": "EnvironmentName",
             "type": "multiLine",
             "label": "Machines",
             "defaultValue": "",
             "required": false,
-            "groupName": "configuracoes",
             "helpMarkDown": "Provide a comma separated list of machine IP addresses or FQDNs along with ports. Port is defaulted based on the selected protocol. <br>Eg: dbserver.fabrikam.com,dbserver_int.fabrikam.com:5986,192.168.12.34:5986 <br>Or provide output variable of other tasks. Eg: $(variableName) <br>If you are using HTTPS, name/IP of machine should match the CN in the certificate."
         },
         {
@@ -47,7 +33,6 @@
             "label": "Admin Login",
             "defaultValue": "",
             "required": false,
-            "groupName": "configuracoes",
             "helpMarkDown": "Administrator login for the target machines."
         },
         {
@@ -56,22 +41,20 @@
             "label": "Password",
             "defaultValue": "",
             "required": false,
-            "groupName": "configuracoes",
             "helpMarkDown": "Administrator password for the target machines. <br>It can accept variable defined in Build/Release definitions as '$(passwordVariable)'. <br>You may mark variable type as 'secret' to secure it."
         },
         {
-            "name": "ServiceName",
-            "type": "string",
-            "label": "Service Name",
+            "name": "serviceName",
+            "type": "multiLine",
+            "label": "Name of your Services to start",
             "defaultValue": "",
             "required": false,
-            "groupName": "servico",
-            "helpMarkDown": "Name of Service you need to stop"
+            "helpMarkDown": "input the services name, with coma separated ex: service1,service2,service3"
         }
   ],
   "execution": {
-      "PowerShell3": {
-      "target": "stopService.ps1"
+    "PowerShell3": {
+      "target": "IniciaServico.ps1"
     }
   }
 }
