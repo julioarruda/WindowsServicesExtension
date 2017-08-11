@@ -76,7 +76,7 @@
             "required": false,
             "groupName": "servico",
             "helpMarkDown": "Diretório do Serviço ex: c:\\servico\\servico.exe"
-        },,		
+        },		
         {
             "name": "usaInstallutil",
             "type": "boolean",
