@@ -1,5 +1,5 @@
 {
-  "id": "352232e0-7eba-11e7-a125-8b80caddf70e",
+  "id": "264cc1a0-7ebe-11e7-b0cd-638a06729af9",
   "name": "IniciaWindowsServices",
   "friendlyName": "Start Windows Services",
   "description": "Task used only to start Windows Services in remote Machines",
