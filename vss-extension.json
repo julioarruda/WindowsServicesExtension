@@ -92,7 +92,7 @@
                 }
         },
 		{
-                "id": "StopWindowsServices",
+                "id": "IniciaWindowsServices",
                 "type": "ms.vss-distributed-task.task",
                 "description": "Task only to Start Windows Services",
                 "targets": [
