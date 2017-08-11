@@ -49,7 +49,7 @@
             "label": "Name of your Services to start",
             "defaultValue": "",
             "required": false,
-            "helpMarkDown": "input the services name, with coma separated ex: service1,service2,service3"
+            "helpMarkDown": "input the services name with coma separated"
         }
   ],
   "execution": {
