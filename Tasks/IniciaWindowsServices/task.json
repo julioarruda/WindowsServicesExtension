@@ -2,7 +2,7 @@
   "id": "352232e0-7eba-11e7-a125-8b80caddf70e",
   "name": "IniciaWindowsServices",
   "friendlyName": "Start Windows Services",
-  "description": "Task used **only** to start Windows Services in remote Machines",
+  "description": "Task used only to start Windows Services in remote Machines",
   "author": "Julio Arruda",
   "helpMarkDown": "",
   "category": "Utility",
