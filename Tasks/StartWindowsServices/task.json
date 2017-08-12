@@ -96,6 +96,35 @@
             "groupName": "servico",
             "helpMarkDown": "Path where InstallUtil.exe has been installed"
         },
+		{
+            "name": "configuraUsuario",
+            "type": "boolean",
+            "label": "Change User Login",
+            "defaultValue": "",
+            "required": false,
+            "groupName": "servico",
+            "helpMarkDown": "Change the Login used in Windows Service"
+        },
+		{
+		    "name": "serviceUser",
+            "type": "string",
+            "label": "Service Login",
+            "defaultValue": "",
+            "required": false,
+            "groupName": "servico",
+			"visibleRule": "configuraUsuario = true",
+            "helpMarkDown": "Login used in your Windows Service"
+		},
+		{
+		    "name": "servicePassword",
+            "type": "string",
+            "label": "Service Password",
+            "defaultValue": "",
+            "required": false,
+            "groupName": "servico",
+			"visibleRule": "configuraUsuario = true",
+            "helpMarkDown": "Password Used in your windows Service"
+		},
         {
             "name": "startupType",
             "type": "pickList",

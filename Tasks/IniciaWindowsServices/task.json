@@ -50,7 +50,33 @@
             "defaultValue": "",
             "required": false,
             "helpMarkDown": "input the services name with coma separated"
-        }
+        },
+		{
+            "name": "configuraUsuario",
+            "type": "boolean",
+            "label": "Change User Login",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Change the Login used in Windows Service"
+        },
+		{
+		    "name": "serviceUser",
+            "type": "string",
+            "label": "Service Login",
+            "defaultValue": "",
+            "required": false,
+            "visibleRule": "configuraUsuario = true",
+            "helpMarkDown": "Login used in your Windows Service"
+		},
+		{
+		    "name": "servicePassword",
+            "type": "string",
+            "label": "Service Password",
+            "defaultValue": "",
+            "required": false,
+            "visibleRule": "configuraUsuario = true",
+            "helpMarkDown": "Password Used in your windows Service"
+		}
   ],
   "execution": {
     "PowerShell3": {

@@ -14,6 +14,9 @@ try {
     $AdminUserName = Get-VstsInput -Name AdminUserName
     $AdminPassword = Get-VstsInput -Name AdminPassword
 	$serviceName  = Get-VstsInput -Name serviceName
+	$configuraUsuario= Get-VstsInput -Name configuraUsuario
+	$serviceUser = Get-VstsInput -Name serviceUser
+	$servicePassword = Get-VstsInput -Name servicePassword
     
 
     $securePassword = ConvertTo-SecureString $AdminPassword -AsPlainText -Force    
@@ -25,7 +28,10 @@ try {
                     (
                             [string]$AdminUserName,
                             [string]$AdminPassword,
-                            [string]$serviceName
+                            [string]$serviceName,
+							[string]$configuraUsuario,
+							[string]$serviceUser,
+							[string]$servicePassword
                             
                         
                     )
@@ -33,10 +39,17 @@ try {
 				
 					foreach($servico in $serviceName.Split(','))
 					{
+						if($configuraUsuario -eq "true")
+						{
+							$svcD=Get-WmiObject -Class Win32_Service -Filter "Name='$servico'"
+							$ChangeStatus = $svcD.change($null,$null,$null,$null,$null,$null,$serviceUser,$servicePassword,$null,$null,$null) 
+							If ($ChangeStatus.ReturnValue -eq "0")  
+								{write-host " User Changed Sucefull"} 
+						}
 						Start-Service "$servico"
 					}
                 
-    } -SessionOption $sessionOptions -ArgumentList @($AdminUserName,$AdminPassword,$serviceName) -Credential $credential    
+    } -SessionOption $sessionOptions -ArgumentList @($AdminUserName,$AdminPassword,$serviceName,$configuraUsuario,$serviceUser,$servicePassword) -Credential $credential    
 
 } finally {
     Trace-VstsLeavingInvocation $MyInvocation
