@@ -9,7 +9,7 @@
             "id": "Microsoft.VisualStudio.Services"
         }
     ],    
-    "description": "Extensão utilizada para realizar o Deploy de Windows Services",
+    "description": "Extension used to Deploy Windows Services",
     "categories": [
         "Build and release"
     ],
