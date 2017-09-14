@@ -61,7 +61,7 @@ try {
             if($usaInstallutil -eq "true")
 			{
                 
-				$run = $installutilpath + " " + "$ServiceFolder"
+				$run = $installutilpath + " " + "'$ServiceFolder'"
                 Invoke-Expression $run
 				
 				if($configuraUsuario -eq "true")
@@ -74,7 +74,7 @@ try {
 
 			}
 			else{
-				New-Service -Name "$ServiceName" -BinaryPathName "$ServiceFolder" -DisplayName "$ServiceName" -Credential $credential -StartupType $startupType
+				New-Service -Name "$ServiceName" -BinaryPathName "'$ServiceFolder'" -DisplayName "$ServiceName" -Credential $credential -StartupType $startupType
 			}
 			
 			
