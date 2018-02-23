@@ -11,7 +11,7 @@ try {
     $apiVersion= Get-VstsInput -Name apiVersion
     $pat= Get-VstsInput -Name pat
 
-    .\PullRequest.ps1 $repository $sourcebranch $targetbranch $api $pat
+    .\PullRequest.ps1 $repository $sourcebranch $targetbranch $apiVersion $pat
     
     
 
