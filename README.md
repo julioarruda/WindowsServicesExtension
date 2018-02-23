@@ -1,7 +1,7 @@
 Windows Services Extension
 ==========================
 
-Projeto da Extension do VSTS para deploy de Windows Services
+Projeto da Extension do VSTS para apoiar os processos de Build e Deploy
 
  
 
@@ -12,8 +12,7 @@ Link da Extension:
 
  
 
-This Extension allows you to make your Windows Services Deployment in your
-Servers.
+This Extension helps you to do a build and deployment in your environments
 
  
 
@@ -53,8 +52,7 @@ that.](https://github.com/julioarruda/WindowsServicesExtension)
 
  
 
-Esta extenção permite que você realize o Deployment de aplicações Windows
-Service em seus servidores.
+Esta extenção serve para apoia-lo em seus processos de Build e Deploy no VSTS
 
  
 

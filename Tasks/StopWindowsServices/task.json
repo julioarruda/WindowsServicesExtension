@@ -14,7 +14,7 @@
   "version": {
     "Major": "0",
     "Minor": "1",
-    "Patch": "2"
+    "Patch": "4"
   },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "Stop Windows Services $(ServiceName)",
@@ -32,13 +32,23 @@
 		   
     ],
   "inputs": [
-     {
+        {
+            "name": "runRemote",
+            "type": "boolean",
+            "label": "Executar Remoto",
+            "defaultValue": "true",
+            "groupName": "configuracoes",
+            "required": false,
+            "helpMarkDown": "Enable this option if this task running for a remote computer. If run local like deployment groups, disable this"
+        },     
+        {
             "name": "EnvironmentName",
             "type": "multiLine",
             "label": "Machines",
             "defaultValue": "",
             "required": false,
             "groupName": "configuracoes",
+            "visibleRule": "runRemote = True",
             "helpMarkDown": "Provide a comma separated list of machine IP addresses or FQDNs along with ports. Port is defaulted based on the selected protocol. <br>Eg: dbserver.fabrikam.com,dbserver_int.fabrikam.com:5986,192.168.12.34:5986 <br>Or provide output variable of other tasks. Eg: $(variableName) <br>If you are using HTTPS, name/IP of machine should match the CN in the certificate."
         },
         {
@@ -48,6 +58,7 @@
             "defaultValue": "",
             "required": false,
             "groupName": "configuracoes",
+            "visibleRule": "runRemote = True",
             "helpMarkDown": "Administrator login for the target machines."
         },
         {
@@ -57,6 +68,7 @@
             "defaultValue": "",
             "required": false,
             "groupName": "configuracoes",
+            "visibleRule": "runRemote = True",
             "helpMarkDown": "Administrator password for the target machines. <br>It can accept variable defined in Build/Release definitions as '$(passwordVariable)'. <br>You may mark variable type as 'secret' to secure it."
         },
         {

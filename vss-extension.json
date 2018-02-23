@@ -1,15 +1,15 @@
 {
     "manifestVersion": 1,
     "id": "build-deploy-extension",
-    "name": "Windows Services Extension",
-    "version": "0.0.1",
+    "name": "Julio Arruda Extensions",
+    "version": "0.0.2",
     "publisher": "julioarrudac",
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
         }
     ],    
-    "description": "Extension used to Deploy Windows Services",
+    "description": "Extension used to help your Build and Deployment Process",
     "categories": [
         "Build and release"
     ],

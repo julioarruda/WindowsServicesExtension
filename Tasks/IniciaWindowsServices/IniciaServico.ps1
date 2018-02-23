@@ -17,39 +17,58 @@ try {
 	$configuraUsuario= Get-VstsInput -Name configuraUsuario
 	$serviceUser = Get-VstsInput -Name serviceUser
 	$servicePassword = Get-VstsInput -Name servicePassword
+	$runRemote= Get-VstsInput -Name runRemote
     
 
     $securePassword = ConvertTo-SecureString $AdminPassword -AsPlainText -Force    
     $credential = New-Object System.Management.Automation.PSCredential($AdminUserName,$securePassword)
 
-    Invoke-Command -ComputerName $EnvironmentName -ScriptBlock {
+	if($runRemote -eq "True")
+	{
+			Invoke-Command -ComputerName $EnvironmentName -ScriptBlock {
 
-                     param
-                    (
-                            [string]$AdminUserName,
-                            [string]$AdminPassword,
-                            [string]$serviceName,
-							[string]$configuraUsuario,
-							[string]$serviceUser,
-							[string]$servicePassword
-                            
-                        
-                    )
-                
-				
-					foreach($servico in $serviceName.Split(','))
-					{
-						if($configuraUsuario -eq "true")
-						{
-							$svcD=Get-WmiObject -Class Win32_Service -Filter "Name='$servico'"
-							$ChangeStatus = $svcD.change($null,$null,$null,$null,$null,$null,$serviceUser,$servicePassword,$null,$null,$null) 
-							If ($ChangeStatus.ReturnValue -eq "0")  
-								{write-host " User Changed Sucefull"} 
-						}
-						Start-Service "$servico"
-					}
-                
-    } -SessionOption $sessionOptions -ArgumentList @($AdminUserName,$AdminPassword,$serviceName,$configuraUsuario,$serviceUser,$servicePassword) -Credential $credential    
+							param
+							(
+									[string]$AdminUserName,
+									[string]$AdminPassword,
+									[string]$serviceName,
+									[string]$configuraUsuario,
+									[string]$serviceUser,
+									[string]$servicePassword
+									
+								
+							)
+						
+						
+							foreach($servico in $serviceName.Split(','))
+							{
+								if($configuraUsuario -eq "true")
+								{
+									$svcD=Get-WmiObject -Class Win32_Service -Filter "Name='$servico'"
+									$ChangeStatus = $svcD.change($null,$null,$null,$null,$null,$null,$serviceUser,$servicePassword,$null,$null,$null) 
+									If ($ChangeStatus.ReturnValue -eq "0")  
+										{write-host " User Changed Sucefull"} 
+								}
+								Start-Service "$servico"
+							}
+						
+			} -SessionOption $sessionOptions -ArgumentList @($AdminUserName,$AdminPassword,$serviceName,$configuraUsuario,$serviceUser,$servicePassword) -Credential $credential    
+	}
+	else {
+
+		foreach($servico in $serviceName.Split(','))
+		{
+			if($configuraUsuario -eq "true")
+			{
+				$svcD=Get-WmiObject -Class Win32_Service -Filter "Name='$servico'"
+				$ChangeStatus = $svcD.change($null,$null,$null,$null,$null,$null,$serviceUser,$servicePassword,$null,$null,$null) 
+				If ($ChangeStatus.ReturnValue -eq "0")  
+					{write-host " User Changed Sucefull"} 
+			}
+			Start-Service "$servico"
+		}
+
+	}
 
 } finally {
     Trace-VstsLeavingInvocation $MyInvocation

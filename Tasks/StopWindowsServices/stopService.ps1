@@ -14,39 +14,74 @@ try {
     $AdminUserName = Get-VstsInput -Name AdminUserName
     $AdminPassword = Get-VstsInput -Name AdminPassword
     $ServiceName = Get-VstsInput -Name ServiceName
+    $runRemote= Get-VstsInput -Name runRemote
 
     $securePassword = ConvertTo-SecureString $AdminPassword -AsPlainText -Force    
     $credential = New-Object System.Management.Automation.PSCredential($AdminUserName,$securePassword)
 
-    Invoke-Command -ComputerName $EnvironmentName -ScriptBlock {
+    $scriptBlock = {
+		param(
+			[string]$serviceName
+		)
 
-                param(
-                    [string]$serviceName
-                )
-                Write-Host "Serviço que será parado: "$serviceName
-               
-               Try{
-                   if(Get-Service $serviceName -ErrorAction SilentlyContinue)
-                   {
-                        $services = @(Get-Service $ServiceName)
-                        foreach ($service in $services)
-                        {
-                            if ($service.Status -eq 'Running')
-                            {
-                                $service | Stop-Service
-                            }
-                        }
-                   }
-                   else
-                   {Write-Host "O Serviço não existe"}
+		Write-Host "Serviço que será parado: "$serviceName
+	
+		try{			
+			if(Get-Service $serviceName -ErrorAction SilentlyContinue){
+				$maxRetries = 3
+				$services = @(Get-Service $ServiceName)
+				foreach ($service in $services){
+					if ($service.Status -eq 'Running'){
+						$tentatives = 0
+						$success = $false
+						do {							
+							try {
+								$tentatives++
+								$service | Stop-Service								
+								$success = $true
+								Write-Host "Service '$serviceName' stoped sucefull!"
+							}
+							catch {								
+								$connError = $_.Exception.Message
+								Write-Warning "[Attemp $tentatives to $maxRetries]: Fail to stop the Service '$ServiceName'. Error: $connError"
+								Start-Sleep -Seconds 5
+							}	
+						} until (($tentatives -ge $maxRetries) -or ($success))
+						
+						if (!$success){
+							Write-Error $connError
+						}
+						
+					}
+					else{
+						Write-Host "The Service '$serviceName' was not been running."
+					}
+				}
+			}
+			else{
+				Write-Warning "Service '$serviceName' not found."
+			}
+		}
+		catch{
+			$connError = $_.Exception.Message
+			Write-Error "Fail to stop the Service '$ServiceName'. Error: $connError"
+		}
+	}
 
-               }
-              Catch{
-                  Write-Host "Falha ao Parar o Serviço ou Serviço não existe" -
-              }
 
+	if ($runRemote -eq "True") {
+		$securePassword = ConvertTo-SecureString $AdminPassword -AsPlainText -Force    
+		$credential = New-Object System.Management.Automation.PSCredential($AdminUserName,$securePassword)
+		$allServers = $EnvironmentName.Split(',').Trim();
 
-    } -SessionOption $sessionOptions -ArgumentList @($ServiceName) -Credential $credential    
+		foreach($maquina in $allServers){
+			Invoke-Command -ComputerName $maquina -ScriptBlock $scriptBlock -SessionOption $sessionOptions -ArgumentList @($ServiceName) -Credential $credential
+		}			
+	}
+	else {
+		#Running using "&" because Invoke-Command so that the scriptblock running without Administrator scope
+		& $scriptBlock -serviceName $ServiceName
+	}  
 
 } finally {
     Trace-VstsLeavingInvocation $MyInvocation
