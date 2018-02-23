@@ -74,7 +74,7 @@ try {
 
 			}
 			else{
-				New-Service -Name "$ServiceName" -BinaryPathName "'$ServiceFolder'" -DisplayName "$ServiceName" -Credential $credential -StartupType $startupType
+				New-Service -Name "$ServiceName" -BinaryPathName "$ServiceFolder" -DisplayName "$ServiceName" -Credential $credential -StartupType $startupType
 			}
 			
 			
