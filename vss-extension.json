@@ -46,6 +46,9 @@
         },
         {
             "path": "Tasks/IniciaWindowsServices"
+        },
+        {
+            "path": "Tasks/AutomatePullRequest"
         }
     ],
 	"screenshots": [
@@ -100,6 +103,18 @@
                     ],
                 "properties": {
                     "name": "Tasks/IniciaWindowsServices"
+              
+                }
+        },
+		{
+                "id": "AutomatePullRequest",
+                "type": "ms.vss-distributed-task.task",
+                "description": "Task used to created a automated Pull Request in your Repository.",
+                "targets": [
+                    "ms.vss-distributed-task.tasks"
+                    ],
+                "properties": {
+                    "name": "Tasks/AutomatePullRequest"
               
                 }
         }

@@ -26,6 +26,8 @@ This extension have 3 tasks:
 
 3 - Start Windows Services
 
+4 - Automated Pull Request
+
  
 
 The first you only stop yours Windows Services.
@@ -33,16 +35,18 @@ The first you only stop yours Windows Services.
 In the second, you install the Windows Service using PoweShell (New-Service) or
 Installutil, you choice the better for you, and after the install this task
 Start your service if you checked this option.
-
  
+The third task, you only to Start Windows Services.
 
-And in the last task, you only to Start Windows Services.
+The Fourth task is used to do a automated pull request in the Repository.
 
  
 
 This is an opensource project, and the source code is in [GitHub, if you like to
 contribute, i like
 that.](https://github.com/julioarruda/WindowsServicesExtension)
+
+The pull request script is from: https://www.marcusfelling.com/blog/2017/create-vsts-pull-request-via-vsts-rest-api/
 
  
 
@@ -64,6 +68,8 @@ Essa extenção possui três tarefas:
 
 3 - Iniciar o Windows Services
 
+4 - Pull Request Automatico
+
 Na primeira, como o proprio nome diz, você irá parar o serviço, para
 posteriormente realizar o deploy do mesmo.
 
@@ -79,9 +85,13 @@ pode marcar se este serviço será inicializado ou não após o deployment.
 A terceira, serve apenas para você iniciar um(ou vários) Windows Services, basta
 incluir os nomes separados por virgula.
 
+A quarta task, serve para criar um pull request automatico para o repositorio.
+
 O código fonte desta aplicação está disponivel no
 [GitHub](https://github.com/julioarruda/WindowsServicesExtension) caso você
 deseje contribuir com alguma correção ou mesmo inclusão de novas funcionalidades
 que possam se fazer necessárias.
+
+O script de Pull Request foi retirado de: https://www.marcusfelling.com/blog/2017/create-vsts-pull-request-via-vsts-rest-api/
 
  
