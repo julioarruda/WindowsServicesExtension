@@ -13,13 +13,10 @@ try {
     $EnvironmentName = Get-VstsInput -Name EnvironmentName
     $AdminUserName = Get-VstsInput -Name AdminUserName
     $AdminPassword = Get-VstsInput -Name AdminPassword
-    $ServiceName = Get-VstsInput -Name ServiceName
-    $runRemote= Get-VstsInput -Name runRemote
-
-    $securePassword = ConvertTo-SecureString $AdminPassword -AsPlainText -Force    
-    $credential = New-Object System.Management.Automation.PSCredential($AdminUserName,$securePassword)
-
-    $scriptBlock = {
+	$ServiceName = Get-VstsInput -Name ServiceName
+	$runRemote= Get-VstsInput -Name runRemote
+	
+	$scriptBlock = {
 		param(
 			[string]$serviceName
 		)
@@ -39,11 +36,11 @@ try {
 								$tentatives++
 								$service | Stop-Service								
 								$success = $true
-								Write-Host "Service '$serviceName' stoped sucefull!"
+								Write-Host "Serviço '$serviceName' parado com sucesso!"
 							}
 							catch {								
 								$connError = $_.Exception.Message
-								Write-Warning "[Attemp $tentatives to $maxRetries]: Fail to stop the Service '$ServiceName'. Error: $connError"
+								Write-Warning "[Tentativa $tentatives de $maxRetries]: Falha ao parar o serviço '$ServiceName'. Erro: $connError"
 								Start-Sleep -Seconds 5
 							}	
 						} until (($tentatives -ge $maxRetries) -or ($success))
@@ -54,17 +51,17 @@ try {
 						
 					}
 					else{
-						Write-Host "The Service '$serviceName' was not been running."
+						Write-Host "Serviço '$serviceName' não estava sendo executado."
 					}
 				}
 			}
 			else{
-				Write-Warning "Service '$serviceName' not found."
+				Write-Warning "Serviço '$serviceName' não encontrado."
 			}
 		}
 		catch{
 			$connError = $_.Exception.Message
-			Write-Error "Fail to stop the Service '$ServiceName'. Error: $connError"
+			Write-Error "Falha ao parar o serviço '$ServiceName'. Erro: $connError"
 		}
 	}
 
@@ -79,10 +76,10 @@ try {
 		}			
 	}
 	else {
-		#Running using "&" because Invoke-Command so that the scriptblock running without Administrator scope
+		#Utilizando a execução via "&" pois Invoke-Command faz com que o scriptblock seja executado fora do escopo de Administrator
 		& $scriptBlock -serviceName $ServiceName
-	}  
-
+	}
+	
 } finally {
     Trace-VstsLeavingInvocation $MyInvocation
 }
